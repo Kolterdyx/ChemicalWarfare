@@ -1,0 +1,4 @@
+name: ChemicalWarfare
+version: '${project.version}'
+main: me.kolterdyx.chemicalwarfare.ChemicalWarfare
+api-version: 1.18
