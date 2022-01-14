@@ -5,6 +5,7 @@ import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import org.bukkit.*;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -28,13 +29,14 @@ public class SeaweedExtract {
     public void craftingRecipe(Plugin plugin){
         NamespacedKey key = new NamespacedKey(plugin, "seaweed_extract");
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, item);
-        sr.addIngredient(2, Material.SEAGRASS);
-        sr.addIngredient(1, Material.BEETROOT);
-        sr.addIngredient(2, Material.DRIED_KELP_BLOCK);
-        sr.addIngredient(2, Material.COAL_BLOCK);
-        sr.addIngredient(1, Material.GLASS_BOTTLE);
-        sr.addIngredient(1, Material.WATER_BUCKET);
+        ShapedRecipe sr = new ShapedRecipe(key, item);
+        sr.shape("SWS","KBK","CGC");
+        sr.setIngredient('S', Material.SEAGRASS);
+        sr.setIngredient('B', Material.BEETROOT);
+        sr.setIngredient('K', Material.DRIED_KELP_BLOCK);
+        sr.setIngredient('C', Material.COAL_BLOCK);
+        sr.setIngredient('G', Material.GLASS_BOTTLE);
+        sr.setIngredient('W', Material.WATER_BUCKET);
         Bukkit.getServer().addRecipe(sr);
     }
 

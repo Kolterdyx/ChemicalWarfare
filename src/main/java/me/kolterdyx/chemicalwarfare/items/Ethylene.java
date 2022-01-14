@@ -3,10 +3,7 @@ package me.kolterdyx.chemicalwarfare.items;
 import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import org.bukkit.*;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
@@ -31,17 +28,17 @@ public class Ethylene {
     public void craftingRecipe(Plugin plugin){
         ItemStack result = item.clone();
         result.setAmount(2);
-        NamespacedKey key = new NamespacedKey(plugin, "ethylene");
-        ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, result);
-        sr.addIngredient(1, Material.BLAZE_POWDER);
-        sr.addIngredient(1, Material.POISONOUS_POTATO);
         ItemStack waterBottle = new ItemStack(Material.POTION, 1);
         PotionMeta meta = (PotionMeta) waterBottle.getItemMeta();
         meta.setBasePotionData(new PotionData(PotionType.WATER));
         waterBottle.setItemMeta(meta);
-        sr.addIngredient(new RecipeChoice.ExactChoice(waterBottle));
-        sr.addIngredient(new RecipeChoice.ExactChoice(waterBottle));
+        NamespacedKey key = new NamespacedKey(plugin, "ethylene");
+        ChemicalWarfare.addRecipe(key);
+        ShapedRecipe sr = new ShapedRecipe(key, result);
+        sr.shape("WB","WP");
+        sr.setIngredient('B', Material.BLAZE_POWDER);
+        sr.setIngredient('P', Material.POISONOUS_POTATO);
+        sr.setIngredient('W', new RecipeChoice.ExactChoice(waterBottle));
         Bukkit.getServer().addRecipe(sr);
     }
 

@@ -4,10 +4,7 @@ import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.*;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -31,10 +28,10 @@ public class SulfurMustard {
     public void craftingRecipe(Plugin plugin){
         NamespacedKey key = new NamespacedKey(plugin, "sulfur_mustard");
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, item);
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.ETHYLENE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.ETHYLENE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SULFUR_DICHLORIDE));
+        ShapedRecipe sr = new ShapedRecipe(key, item);
+        sr.shape("ESE");
+        sr.setIngredient('E', new RecipeChoice.ExactChoice(ItemManager.ETHYLENE));
+        sr.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SULFUR_DICHLORIDE));
         Bukkit.getServer().addRecipe(sr);
     }
 

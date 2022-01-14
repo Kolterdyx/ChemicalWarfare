@@ -42,7 +42,6 @@ public final class ChemicalWarfare extends JavaPlugin {
         ItemManager.init(this);
 
         getServer().getPluginManager().registerEvents(new CWListener(this), this);
-        getServer().getPluginManager().registerEvents(new Crafter(this), this);
 
         this.getCommand("chlorine").setExecutor(new Commands(this));
         this.getCommand("mustard").setExecutor(new Commands(this));

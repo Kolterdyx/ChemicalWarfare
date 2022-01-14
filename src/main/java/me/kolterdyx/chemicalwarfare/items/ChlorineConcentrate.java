@@ -4,10 +4,7 @@ import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.*;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.RecipeChoice;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -33,12 +30,10 @@ public class ChlorineConcentrate {
         result.setAmount(2);
         NamespacedKey key = new NamespacedKey(plugin, "chlorine_concentrate");
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, result);
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(2, Material.GLASS_BOTTLE);
+        ShapedRecipe sr = new ShapedRecipe(key, result);
+        sr.shape("CC","CC","BB");
+        sr.setIngredient('C', new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
+        sr.setIngredient('B', Material.GLASS_BOTTLE);
         Bukkit.getServer().addRecipe(sr);
     }
 

@@ -47,25 +47,34 @@ public class Canister{
     public void craftingRecipe() {
         NamespacedKey key = new NamespacedKey(plugin, "canister"+tier.getValue()+""+gas);
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe recipe = new ShapelessRecipe(key, item);
-        recipe.addIngredient(new RecipeChoice.ExactChoice(new Canister(plugin, tier, 1, 0).getItemStack()));
-        switch (gas){
-            case 1:
-                for (int i = 0; i < tier.getValue(); i++) {
-                    recipe.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SULFUR_MUSTARD));
-                }
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
+
+        switch (tier){
+            case ONE:
+                recipe.shape("SC");
                 break;
-            case 2:
-                for (int i = 0; i < tier.getValue(); i++) {
-                    recipe.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE_CONCENTRATE));
-                }
+            case TWO:
+                recipe.shape("SCS");
                 break;
-            case 3:
-                for (int i = 0; i < tier.getValue(); i++) {
-                    recipe.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SEAWEED_EXTRACT));
-                }
+            case THREE:
+                recipe.shape("SC","SS");
+                break;
+            case FOUR:
+                recipe.shape(" S ","SCS"," S ");
                 break;
         }
+        switch (gas){
+            case 1:
+                recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SULFUR_MUSTARD));
+                break;
+            case 2:
+                recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.CHLORINE_CONCENTRATE));
+                break;
+            case 3:
+                recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SEAWEED_EXTRACT));
+                break;
+        }
+        recipe.setIngredient('C', new RecipeChoice.ExactChoice(new Canister(plugin, tier, 1, 0).getItemStack()));
         Bukkit.getServer().addRecipe(recipe);
     }
 

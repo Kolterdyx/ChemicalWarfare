@@ -86,7 +86,7 @@ public class ItemManager {
             }
             sr.setIngredient('T', Material.CLAY);
             sr.setIngredient('B', Material.GLASS_BOTTLE);
-            sr.setIngredient('I', Material.IRON_BLOCK);
+            sr.setIngredient('I', Material.IRON_INGOT);
             sr.setIngredient('R', Material.REDSTONE);
 
 

@@ -32,8 +32,10 @@ public class Salt {
 
     public void craftingRecipe(Plugin plugin){
         NamespacedKey key = new NamespacedKey(plugin, "salt");
+        ItemStack result = item.clone();
+        result.setAmount(6);
         ChemicalWarfare.addRecipe(key);
-        FurnaceRecipe sr = new FurnaceRecipe(key, item, new RecipeChoice.ExactChoice(ItemManager.SALT_WATER), 1, 200);
+        FurnaceRecipe sr = new FurnaceRecipe(key, result, new RecipeChoice.ExactChoice(ItemManager.SALT_WATER), 1, 200);
         Bukkit.getServer().addRecipe(sr);
     }
 

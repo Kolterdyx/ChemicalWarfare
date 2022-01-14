@@ -44,13 +44,14 @@ public class Rocket {
     public void craftingRecipe() {
         NamespacedKey key = new NamespacedKey(plugin, "rocket"+tier.getValue()+""+gas+""+power);
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe recipe = new ShapelessRecipe(key, item);
+        ShapedRecipe recipe = new ShapedRecipe(key, item);
         ItemStack rocket = new ItemStack(Material.FIREWORK_ROCKET);
         FireworkMeta meta = (FireworkMeta) rocket.getItemMeta();
         meta.setPower(power);
         rocket.setItemMeta(meta);
-        recipe.addIngredient(new RecipeChoice.ExactChoice(rocket));
-        recipe.addIngredient(new RecipeChoice.ExactChoice(new Canister(plugin, tier, 1, gas).getItemStack()));
+        recipe.shape("C","R");
+        recipe.setIngredient('R', new RecipeChoice.ExactChoice(rocket));
+        recipe.setIngredient('C', new RecipeChoice.ExactChoice(new Canister(plugin, tier, 1, gas).getItemStack()));
         Bukkit.getServer().addRecipe(recipe);
     }
 

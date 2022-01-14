@@ -13,6 +13,7 @@ import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -92,44 +93,58 @@ public class CWListener implements Listener {
         boolean rightClick = event.getAction() == Action.RIGHT_CLICK_AIR;
         if (rightClick){
             ItemStack item = event.getItem();
-            NamespacedKey itemKey = new NamespacedKey(plugin, "item_type");
-            NamespacedKey gasKey = new NamespacedKey(plugin, "gas");
-            PersistentDataContainer data = item.getItemMeta().getPersistentDataContainer();
-            String itemType = data.get(itemKey, PersistentDataType.STRING);
-            if (itemType != null){
-                switch (itemType){
-                    case "canister":
-                        if (data.get(gasKey, PersistentDataType.INTEGER) == 0){
-                            event.setCancelled(true);
-                        }
-                        break;
-                    case "ethylene":
-                    case "salt_water":
-                    case "chlorine_concentrate":
-                    case "sulfur_mustard":
-                    case "seaweed_extract":
-                        event.setCancelled(true);
-                        break;
-                }
-            }
-            if (item.getType() == Material.CROSSBOW){
-                CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
-                var projectiles = meta.getChargedProjectiles();
-                if (projectiles.size() == 0) {
-                    ItemStack p = event.getPlayer().getInventory().getItemInOffHand();
-                    if (p.getType() == Material.FIREWORK_ROCKET){
-                        NamespacedKey rItemKey = new NamespacedKey(plugin, "item_type");
-                        PersistentDataContainer rData = p.getItemMeta().getPersistentDataContainer();
-                        String rItemType = rData.get(rItemKey, PersistentDataType.STRING);
-                        if ("rocket".equals(rItemType)){
-                            if (meta.getEnchants().containsKey(Enchantment.MULTISHOT)){
-                                event.getPlayer().sendMessage(ChemicalWarfare.getString()+" You can not fire gas rockets with multishot crossbows");
+            if (item != null){
+
+                NamespacedKey itemKey = new NamespacedKey(plugin, "item_type");
+                NamespacedKey gasKey = new NamespacedKey(plugin, "gas");
+                PersistentDataContainer data = item.getItemMeta().getPersistentDataContainer();
+                String itemType = data.get(itemKey, PersistentDataType.STRING);
+                if (itemType != null){
+                    switch (itemType){
+                        case "canister":
+                            if (data.get(gasKey, PersistentDataType.INTEGER) == 0){
                                 event.setCancelled(true);
+                            }
+                            break;
+                        case "ethylene":
+                        case "salt_water":
+                        case "chlorine_concentrate":
+                        case "sulfur_mustard":
+                        case "seaweed_extract":
+                            event.setCancelled(true);
+                            break;
+                    }
+                }
+                if (item.getType() == Material.CROSSBOW){
+                    CrossbowMeta meta = (CrossbowMeta) item.getItemMeta();
+                    var projectiles = meta.getChargedProjectiles();
+                    if (projectiles.size() == 0) {
+                        ItemStack p = event.getPlayer().getInventory().getItemInOffHand();
+                        if (p.getType() == Material.FIREWORK_ROCKET){
+                            NamespacedKey rItemKey = new NamespacedKey(plugin, "item_type");
+                            PersistentDataContainer rData = p.getItemMeta().getPersistentDataContainer();
+                            String rItemType = rData.get(rItemKey, PersistentDataType.STRING);
+                            if ("rocket".equals(rItemType)){
+                                if (meta.getEnchants().containsKey(Enchantment.MULTISHOT)){
+                                    event.getPlayer().sendMessage(ChemicalWarfare.getString()+" You can not fire gas rockets with multishot crossbows");
+                                    event.setCancelled(true);
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlaced(BlockPlaceEvent event){
+        ItemStack item = event.getItemInHand();
+        NamespacedKey itemKey = new NamespacedKey(plugin, "item_type");
+        PersistentDataContainer data = item.getItemMeta().getPersistentDataContainer();
+        String itemType = data.get(itemKey, PersistentDataType.STRING);
+        if ("gasmask".equals(itemType)){
+            event.setCancelled(true);
         }
     }
 

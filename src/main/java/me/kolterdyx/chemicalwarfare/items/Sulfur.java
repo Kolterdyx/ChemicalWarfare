@@ -28,7 +28,9 @@ public class Sulfur {
     public void craftingRecipe(Plugin plugin){
         NamespacedKey key = new NamespacedKey(plugin, "sulfur");
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, item);
+        ItemStack result = item.clone();
+        result.setAmount(2);
+        ShapelessRecipe sr = new ShapelessRecipe(key, result);
         sr.addIngredient(4, Material.GUNPOWDER);
         Bukkit.getServer().addRecipe(sr);
     }

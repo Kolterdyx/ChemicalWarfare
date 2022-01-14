@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -30,14 +31,11 @@ public class SulfurDichloride {
     public void craftingRecipe(Plugin plugin){
         NamespacedKey key = new NamespacedKey(plugin, "sulfur_dichloride");
         ChemicalWarfare.addRecipe(key);
-        ShapelessRecipe sr = new ShapelessRecipe(key, item);
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SULFUR));
-        sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SULFUR));
-        sr.addIngredient(1, Material.LAVA_BUCKET);
+        ShapedRecipe sr = new ShapedRecipe(key, item);
+        sr.shape("CCC","CSS","L  ");
+        sr.setIngredient('C', new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
+        sr.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SULFUR));
+        sr.setIngredient('L', Material.LAVA_BUCKET);
         Bukkit.getServer().addRecipe(sr);
     }
 
