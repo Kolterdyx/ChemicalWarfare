@@ -1,35 +1,43 @@
 package me.kolterdyx.chemicalwarfare;
 
-import me.kolterdyx.chemicalwarfare.utils.CWListener;
-import me.kolterdyx.chemicalwarfare.utils.Commands;
-import me.kolterdyx.chemicalwarfare.utils.Crafter;
-import me.kolterdyx.chemicalwarfare.utils.ItemManager;
+import me.kolterdyx.chemicalwarfare.utils.*;
 import me.kolterdyx.chemicalwarfare.weapons.GasCloud;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public final class ChemicalWarfare extends JavaPlugin {
 
-    public static long particlePeriod=2;
+    public static long particlePeriod=1;
     private ArrayList<BukkitRunnable> gasClouds = new ArrayList<>();
-    private static Wind wind = new Wind();
+    private static ArrayList<NamespacedKey> recipes = new ArrayList<>();
 
-    public static Vector getWindVelocity() {
-        return wind.getVelocity();
+    public static String getString() {
+        return ChatColor.RED + "[" +ChatColor.DARK_GREEN+"Chemical Warfare"+  ChatColor.RED +"]"+ChatColor.YELLOW;
     }
 
-    public static Vector getRawWindVelocity() {
-        return wind.getRawVelocity();
+    public static String getResourcePack() {
+        return "http://nube.videlicet.es/s/zJz5LQo4FbapcXW/download/ChemicalWarfare.zip";
+    }
+
+    public static void addRecipe(NamespacedKey key) {
+        recipes.add(key);
+    }
+
+    public static Collection<NamespacedKey> getRecipes() {
+        return recipes;
     }
 
     @Override
     public void onEnable() {
-
-        wind.runTaskTimer(this, 0L, 1L);
 
         ItemManager.init(this);
 
@@ -42,7 +50,11 @@ public final class ChemicalWarfare extends JavaPlugin {
         this.getCommand("canister").setExecutor(new Commands(this));
         this.getCommand("gasmask").setExecutor(new Commands(this));
         this.getCommand("cleargas").setExecutor(new Commands(this));
-        this.getCommand("wind").setExecutor(new Commands(this));
+        this.getCommand("cwpack").setExecutor(new Commands(this));
+
+        for (Player player : Bukkit.getServer().getOnlinePlayers()){
+            player.discoverRecipes(getRecipes());
+        }
 
         Bukkit.getLogger().info("Chemical Warfare plugin loaded");
     }
@@ -64,6 +76,5 @@ public final class ChemicalWarfare extends JavaPlugin {
     @Override
     public void onDisable() {
         stopAllGas();
-        wind.cancel();
     }
 }

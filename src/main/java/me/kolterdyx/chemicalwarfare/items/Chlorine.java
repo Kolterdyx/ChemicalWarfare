@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.items;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.Bukkit;
@@ -21,12 +22,15 @@ public class Chlorine {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE+"Chlorine");
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_id"), PersistentDataType.INTEGER, ItemList.CHLORINE.getId());
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_type"), PersistentDataType.STRING, "chlorine");
         item.setItemMeta(meta);
-        craftingRecipe();
+        craftingRecipe(plugin);
     }
 
-    public void craftingRecipe(){
-        ShapelessRecipe sr = new ShapelessRecipe(NamespacedKey.minecraft("chlorine"), item);
+    public void craftingRecipe(Plugin plugin){
+        NamespacedKey key = new NamespacedKey(plugin, "chlorine");
+        ChemicalWarfare.addRecipe(key);
+        ShapelessRecipe sr = new ShapelessRecipe(key, item);
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SALT));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SALT));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SALT));
@@ -34,7 +38,7 @@ public class Chlorine {
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SALT));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SALT));
         sr.addIngredient(1, Material.REDSTONE);
-        sr.addIngredient(2, Material.LIGHTNING_ROD);
+        sr.addIngredient(2, Material.COPPER_INGOT);
         Bukkit.getServer().addRecipe(sr);
     }
 

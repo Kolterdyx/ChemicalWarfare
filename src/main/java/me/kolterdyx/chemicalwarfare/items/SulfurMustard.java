@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.items;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.*;
@@ -20,14 +21,17 @@ public class SulfurMustard {
         PotionMeta meta = (PotionMeta) item.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE+"Sulfur mustard");
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_id"), PersistentDataType.INTEGER, ItemList.SULFUR_MUSTARD.getId());
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_type"), PersistentDataType.STRING, "sulfur_mustard");
         meta.setColor(Color.fromRGB(241, 255, 38));
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         item.setItemMeta(meta);
-        craftingRecipe();
+        craftingRecipe(plugin);
     }
 
-    public void craftingRecipe(){
-        ShapelessRecipe sr = new ShapelessRecipe(NamespacedKey.minecraft("sulfur_mustard"), item);
+    public void craftingRecipe(Plugin plugin){
+        NamespacedKey key = new NamespacedKey(plugin, "sulfur_mustard");
+        ChemicalWarfare.addRecipe(key);
+        ShapelessRecipe sr = new ShapelessRecipe(key, item);
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.ETHYLENE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.ETHYLENE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.SULFUR_DICHLORIDE));

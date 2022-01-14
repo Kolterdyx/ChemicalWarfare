@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.items;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.Bukkit;
@@ -21,12 +22,15 @@ public class SulfurDichloride {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE+"Sulfur dichloride");
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_id"), PersistentDataType.INTEGER, ItemList.SULFUR_DICHLORIDE.getId());
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_type"), PersistentDataType.STRING, "sulfur_dichloride");
         item.setItemMeta(meta);
-        craftingRecipe();
+        craftingRecipe(plugin);
     }
 
-    public void craftingRecipe(){
-        ShapelessRecipe sr = new ShapelessRecipe(NamespacedKey.minecraft("sulfur_dichloride"), item);
+    public void craftingRecipe(Plugin plugin){
+        NamespacedKey key = new NamespacedKey(plugin, "sulfur_dichloride");
+        ChemicalWarfare.addRecipe(key);
+        ShapelessRecipe sr = new ShapelessRecipe(key, item);
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));

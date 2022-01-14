@@ -1,4 +1,5 @@
 name: ChemicalWarfare
+author: Kolterdyx
 version: '${project.version}'
 main: me.kolterdyx.chemicalwarfare.ChemicalWarfare
 api-version: 1.18
@@ -31,6 +32,6 @@ commands:
     description: Sets the period between particle spawns
     usage: /particleperiod <period>
     permission: chemicalwarfare.command.particleperiod
-  wind:
-    description: Gets the current wind values
-    usage: /wind
+  cwpack:
+    description: Download the resource pack
+    usage: /cwpack

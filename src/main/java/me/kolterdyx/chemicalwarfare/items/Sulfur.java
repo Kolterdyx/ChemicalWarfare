@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.items;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,12 +20,15 @@ public class Sulfur {
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE+"Sulfur");
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_id"), PersistentDataType.INTEGER, ItemList.SULFUR.getId());
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_type"), PersistentDataType.STRING, "sulfur");
         item.setItemMeta(meta);
-        craftingRecipe();
+        craftingRecipe(plugin);
     }
 
-    public void craftingRecipe(){
-        ShapelessRecipe sr = new ShapelessRecipe(NamespacedKey.minecraft("sulfur"), item);
+    public void craftingRecipe(Plugin plugin){
+        NamespacedKey key = new NamespacedKey(plugin, "sulfur");
+        ChemicalWarfare.addRecipe(key);
+        ShapelessRecipe sr = new ShapelessRecipe(key, item);
         sr.addIngredient(4, Material.GUNPOWDER);
         Bukkit.getServer().addRecipe(sr);
     }

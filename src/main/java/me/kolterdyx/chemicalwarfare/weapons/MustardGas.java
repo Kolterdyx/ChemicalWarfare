@@ -1,17 +1,17 @@
 package me.kolterdyx.chemicalwarfare.weapons;
 
 import me.kolterdyx.chemicalwarfare.utils.GasProperties;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.List;
 
 public class MustardGas extends GasCloud {
 
@@ -32,11 +32,28 @@ public class MustardGas extends GasCloud {
             if (pos.distanceSquared(player.getLocation()) < effectDistance){
                 ItemStack helmet = player.getInventory().getHelmet();
                 if (helmet != null && helmet.hasItemMeta()) {
-                    PersistentDataContainer data = helmet.getItemMeta().getPersistentDataContainer();
+                    ItemMeta meta = helmet.getItemMeta();
+                    PersistentDataContainer data = meta.getPersistentDataContainer();
                     NamespacedKey key1 = new NamespacedKey(this.plugin, "gas_filter");
                     NamespacedKey key2 = new NamespacedKey(this.plugin, "tier");
-                    if (data.get(key1, PersistentDataType.INTEGER) != GasProperties.MUSTARD.getIndex() || level.higherThan(data.get(key2, PersistentDataType.INTEGER))) {
+                    if (data.get(key1, PersistentDataType.INTEGER) != GasProperties.MUSTARD.getIndex()) {
                         applyGas(player, power);
+                    } else {
+                        NamespacedKey durabilityKey = new NamespacedKey(this.plugin, "durability");
+                        int durability = data.get(durabilityKey, PersistentDataType.INTEGER);
+                        if (durability>0){
+                            data.set(durabilityKey, PersistentDataType.INTEGER, --durability);
+                            List<String> lore = meta.getLore();
+                            lore.set(2, ChatColor.GOLD+"Durability left: " + ChatColor.GREEN + durability/20);
+                            meta.setLore(lore);
+                            helmet.setItemMeta(meta);
+                        } else {
+                            List<String> lore = meta.getLore();
+                            lore.set(2, ChatColor.GOLD+"Durability left: " + ChatColor.RED + 0);
+                            meta.setLore(lore);
+                            helmet.setItemMeta(meta);
+                            applyGas(player, power);
+                        }
                     }
                 } else {
                     applyGas(player, power);

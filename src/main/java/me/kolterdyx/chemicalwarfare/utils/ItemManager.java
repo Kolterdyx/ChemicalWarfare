@@ -1,12 +1,13 @@
 package me.kolterdyx.chemicalwarfare.utils;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
+import me.kolterdyx.chemicalwarfare.gear.GasMask;
 import me.kolterdyx.chemicalwarfare.items.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 import org.bukkit.plugin.Plugin;
-import org.checkerframework.checker.units.qual.C;
 
 public class ItemManager {
 
@@ -40,9 +41,26 @@ public class ItemManager {
         CHLORINE_CONCENTRATE = new ChlorineConcentrate(plugin).getItem();
 
         for (Tier tier : Tier.values()){
+
+            new GasMask(plugin, tier, 1, 1).craftingRecipe();
+            new GasMask(plugin, tier, 1, 2).craftingRecipe();
+            new GasMask(plugin, tier, 1, 3).craftingRecipe();
+
+            for (int i = 0; i < 3; i++) {
+                new Rocket(plugin, tier, 1, i+1).craftingRecipe();
+                new Rocket(plugin, tier, 2, i+1).craftingRecipe();
+                new Rocket(plugin, tier, 3, i+1).craftingRecipe();
+            }
+
+            new Canister(plugin, tier, 1, 1).craftingRecipe();
+            new Canister(plugin, tier, 1, 2).craftingRecipe();
+            new Canister(plugin, tier, 1, 3).craftingRecipe();
+
             ItemStack item =  new Canister(plugin, tier, 1, 0).getItemStack();
             item.setAmount(4);
-            ShapedRecipe sr = new ShapedRecipe(new NamespacedKey(plugin, "canister"+tier.getValue()), item);
+            NamespacedKey key = new NamespacedKey(plugin, "canister"+tier.getValue());
+            ChemicalWarfare.addRecipe(key);
+            ShapedRecipe sr = new ShapedRecipe(key, item);
 
             switch (tier){
                 case ONE:
@@ -74,6 +92,7 @@ public class ItemManager {
 
             Bukkit.getServer().addRecipe(sr);
         }
+
     }
 
     private static void setPlugin(Plugin p) {

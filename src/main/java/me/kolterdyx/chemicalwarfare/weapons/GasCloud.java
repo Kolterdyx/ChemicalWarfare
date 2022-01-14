@@ -63,7 +63,6 @@ public abstract class GasCloud extends BukkitRunnable {
             }
             radius = level.getValue()*2;
         }
-        pos.add(ChemicalWarfare.getWindVelocity());
         ticksLived++;
     }
 

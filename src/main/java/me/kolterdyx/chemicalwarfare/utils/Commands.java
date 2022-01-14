@@ -76,16 +76,19 @@ public class Commands implements CommandExecutor {
                 case "cleargas":
                     ((ChemicalWarfare)plugin).stopAllGas();
                     break;
-                case "wind":
-                    Vector velocity = ChemicalWarfare.getRawWindVelocity();
-
-                    double angleSouth = velocity.angle(new Vector(0, 0, 1)) * 180/Math.PI;
-
-                    player.sendMessage(ChatColor.GREEN+"Speed: "+ChatColor.YELLOW+String.format("%.2f", velocity.length())+"m/s");
-                    player.sendMessage(ChatColor.GREEN+"Angle: "+ChatColor.YELLOW+String.format("%.2f", angleSouth)+"°");
-                    break;
+                case "cwpack":
+                    player.sendMessage(ChemicalWarfare.getString() + " Sending resource pack...");
+                    player.setResourcePack(ChemicalWarfare.getResourcePack());
             }
         }
         return true;
+    }
+
+    private void sendWindData(Player player, Vector velocity){
+
+        double angleSouth = velocity.angle(new Vector(0, 0, 1)) * 180/Math.PI;
+
+        player.sendMessage(ChatColor.GREEN+"Speed: "+ChatColor.YELLOW+String.format("%.2f", velocity.length())+"m/s");
+        player.sendMessage(ChatColor.GREEN+"Angle: "+ChatColor.YELLOW+String.format("%.2f", angleSouth)+"°");
     }
 }

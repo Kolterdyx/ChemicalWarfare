@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.items;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.ItemList;
 import me.kolterdyx.chemicalwarfare.utils.ItemManager;
 import org.bukkit.*;
@@ -20,16 +21,19 @@ public class ChlorineConcentrate {
         PotionMeta meta = (PotionMeta)item.getItemMeta();
         meta.setDisplayName(ChatColor.WHITE+"Chlorine concentrate");
         meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_id"), PersistentDataType.INTEGER, ItemList.CHLORINE_CONCENTRATE.getId());
+        meta.getPersistentDataContainer().set(new NamespacedKey(plugin, "item_type"), PersistentDataType.STRING, "chlorine_concentrate");
         meta.setColor(Color.fromRGB(203, 255, 82));
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         item.setItemMeta(meta);
-        craftingRecipe();
+        craftingRecipe(plugin);
     }
 
-    public void craftingRecipe(){
+    public void craftingRecipe(Plugin plugin){
         ItemStack result = item.clone();
         result.setAmount(2);
-        ShapelessRecipe sr = new ShapelessRecipe(NamespacedKey.minecraft("chlorine_concentrate"), result);
+        NamespacedKey key = new NamespacedKey(plugin, "chlorine_concentrate");
+        ChemicalWarfare.addRecipe(key);
+        ShapelessRecipe sr = new ShapelessRecipe(key, result);
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
         sr.addIngredient(new RecipeChoice.ExactChoice(ItemManager.CHLORINE));
