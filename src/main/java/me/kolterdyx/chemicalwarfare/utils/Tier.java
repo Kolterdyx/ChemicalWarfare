@@ -8,7 +8,7 @@ public enum Tier {
 
     private int value;
     private int amount;
-    public static final int duration = 60;
+    public static final int duration = 300;
     private int durability;
 
     Tier(int v, int a, int d){

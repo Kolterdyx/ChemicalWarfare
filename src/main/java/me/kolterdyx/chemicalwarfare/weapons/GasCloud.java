@@ -62,6 +62,7 @@ public abstract class GasCloud extends BukkitRunnable {
                     this.cancel();
             }
             radius = level.getValue()*2;
+            effectDistance = (int) Math.pow(radius*2.5f, 2);
         }
         ticksLived++;
     }
