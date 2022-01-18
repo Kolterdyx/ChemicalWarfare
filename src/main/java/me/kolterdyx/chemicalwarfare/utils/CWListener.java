@@ -239,7 +239,7 @@ public class CWListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                player.setResourcePack(ChemicalWarfare.getResourcePack());
+                player.setResourcePack(ChemicalWarfare.getCustomConfig().getString("resource-pack-url"));
             }
         }.runTaskLater(plugin, 20L);
     }

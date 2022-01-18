@@ -83,7 +83,7 @@ public class Commands implements CommandExecutor {
                     break;
                 case "cwpack":
                     player.sendMessage(ChemicalWarfare.getString() + " Sending resource pack...");
-                    player.setResourcePack(ChemicalWarfare.getResourcePack());
+                    player.setResourcePack(ChemicalWarfare.getCustomConfig().getString("resource-pack-url"));
             }
         } else {
             if (label.equals("gas") && "clear".equals(args[0])){

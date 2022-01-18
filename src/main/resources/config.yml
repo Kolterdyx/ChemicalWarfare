@@ -42,3 +42,5 @@ allow-multishot-rpgs: false # Default: false
 
 # Show a blue circle made out of particles where the gas officially ends.
 debug-circle: false # Default: false
+
+resource-pack-url: "http://nube.videlicet.es/s/zJz5LQo4FbapcXW/download/ChemicalWarfare.zip"

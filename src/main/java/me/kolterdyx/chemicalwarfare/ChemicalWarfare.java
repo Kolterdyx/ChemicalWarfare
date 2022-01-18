@@ -2,6 +2,7 @@ package me.kolterdyx.chemicalwarfare;
 
 import me.kolterdyx.chemicalwarfare.utils.*;
 import me.kolterdyx.chemicalwarfare.weapons.GasCloud;
+import me.kolterdyx.chemicalwarfare.web.ResourcePackHost;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -29,10 +30,6 @@ public final class ChemicalWarfare extends JavaPlugin {
         return ChatColor.RED + "[" +ChatColor.DARK_GREEN+"Chemical Warfare"+  ChatColor.RED +"]"+ChatColor.YELLOW;
     }
 
-    public static String getResourcePack() {
-        return "http://nube.videlicet.es/s/zJz5LQo4FbapcXW/download/ChemicalWarfare.zip";
-    }
-
     public static void addRecipe(NamespacedKey key) {
         recipes.add(key);
     }
@@ -56,6 +53,12 @@ public final class ChemicalWarfare extends JavaPlugin {
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()){
             player.discoverRecipes(getRecipes());
+        }
+
+        try {
+            new ResourcePackHost().start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Bukkit.getLogger().info("Chemical Warfare plugin loaded");
