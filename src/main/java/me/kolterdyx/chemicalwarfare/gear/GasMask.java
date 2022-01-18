@@ -3,7 +3,6 @@ package me.kolterdyx.chemicalwarfare.gear;
 import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.GasProperties;
 import me.kolterdyx.chemicalwarfare.utils.Tier;
-import net.minecraft.world.item.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -83,10 +82,9 @@ public class GasMask {
         }
 
         Bukkit.getServer().addRecipe(recipe);
-
     }
 
     public ItemStack getItemStack(){
-        return item;
+        return item.clone();
     }
 }

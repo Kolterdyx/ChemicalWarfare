@@ -1,14 +1,16 @@
 package me.kolterdyx.chemicalwarfare.utils;
 
-public enum Tier {
-    ONE(1, 1, 120),
-    TWO(2, 5, 180),
-    THREE(3, 10, 300),
-    FOUR(4, 10, 600);
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 
-    private int value;
+public enum Tier {
+    ONE(1, ChemicalWarfare.getCustomConfig().getInt("cloud-particles.tier-one"), ChemicalWarfare.getCustomConfig().getInt("gas-mask-durability.tier-one")),
+    TWO(2, ChemicalWarfare.getCustomConfig().getInt("cloud-particles.tier-two"), ChemicalWarfare.getCustomConfig().getInt("gas-mask-durability.tier-two")),
+    THREE(3, ChemicalWarfare.getCustomConfig().getInt("cloud-particles.tier-three"), ChemicalWarfare.getCustomConfig().getInt("gas-mask-durability.tier-three")),
+    FOUR(4, ChemicalWarfare.getCustomConfig().getInt("cloud-particles.tier-four"), ChemicalWarfare.getCustomConfig().getInt("gas-mask-durability.tier-four"));
+
+    private final int value;
     private int amount;
-    public static final int duration = 300;
+    public static final int duration = ChemicalWarfare.getCustomConfig().getInt("cloud-duration");
     private int durability;
 
     Tier(int v, int a, int d){
@@ -17,20 +19,12 @@ public enum Tier {
         this.durability = d;
     }
 
-    public static Tier getByValue(int v) {
-        for (Tier tier : Tier.values()){
-            if (tier.getValue() == v){
-                return tier;
-            }
-        }
-        return null;
+    public void setAmount(int amount){
+        this.amount = amount;
     }
 
-    public boolean higherThan(Tier tier){
-        return this.value > tier.getValue();
-    }
-    public boolean higherThan(int number){
-        return this.value > number;
+    public void setDurability(int durability){
+        this.durability = durability;
     }
 
     public int getValue() {

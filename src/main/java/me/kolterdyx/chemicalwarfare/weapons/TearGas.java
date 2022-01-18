@@ -1,5 +1,6 @@
 package me.kolterdyx.chemicalwarfare.weapons;
 
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.GasProperties;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
@@ -32,7 +33,8 @@ public class TearGas extends GasCloud {
         createToxicCloud(GasProperties.TEAR.getColor(), level.getAmount());
         for (Entity e : world.getNearbyEntities(pos, this.effectDistance, this.effectDistance, this.effectDistance)) {
             if (e instanceof LivingEntity entity){
-                if (pos.distanceSquared(entity.getLocation()) < effectDistance){
+                if (!(entity instanceof Player) && !ChemicalWarfare.getCustomConfig().getBoolean("gas-affects-living-entities")) continue;
+                if (pos.distanceSquared(entity.getLocation()) < effectDistanceSquared){
                     ItemStack helmet = entity.getEquipment().getHelmet();
                     if (helmet != null && helmet.hasItemMeta()) {
                         ItemMeta meta = helmet.getItemMeta();
