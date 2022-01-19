@@ -44,3 +44,4 @@ allow-multishot-rpgs: false # Default: false
 debug-circle: false # Default: false
 
 resource-pack-url: "http://nube.videlicet.es/s/zJz5LQo4FbapcXW/download/ChemicalWarfare.zip"
+resource-pack-host-port: 8888

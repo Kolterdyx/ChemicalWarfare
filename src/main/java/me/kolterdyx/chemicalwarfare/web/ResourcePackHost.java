@@ -6,6 +6,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
+import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 
 public class ResourcePackHost  extends AbstractVerticle {
 
@@ -47,7 +48,7 @@ public class ResourcePackHost  extends AbstractVerticle {
                 // Handle every request using the router
                 .requestHandler(router)
                 // Start listening
-                .listen(8888)
+                .listen(ChemicalWarfare.getCustomConfig().getInt("resource-pack-host-port"))
                 // Print the port
                 .onSuccess(server ->
                         System.out.println(

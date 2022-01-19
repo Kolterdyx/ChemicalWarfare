@@ -42,9 +42,10 @@ public class ItemManager {
 
         for (Tier tier : Tier.values()){
 
-            new GasMask(plugin, tier, 1, 1).craftingRecipe();
-            new GasMask(plugin, tier, 1, 2).craftingRecipe();
-            new GasMask(plugin, tier, 1, 3).craftingRecipe();
+            new GasMask(plugin, tier, 1, GasProperties.UNIVERSAL.getIndex()).craftingRecipe();
+            new GasMask(plugin, tier, 1, GasProperties.MUSTARD.getIndex()).craftingRecipe();
+            new GasMask(plugin, tier, 1, GasProperties.CHLORINE.getIndex()).craftingRecipe();
+            new GasMask(plugin, tier, 1, GasProperties.TEAR.getIndex()).craftingRecipe();
 
             for (int i = 0; i < 3; i++) {
                 new Rocket(plugin, tier, 1, i+1).craftingRecipe();

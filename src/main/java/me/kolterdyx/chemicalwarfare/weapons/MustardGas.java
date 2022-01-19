@@ -42,7 +42,7 @@ public class MustardGas extends GasCloud {
                         PersistentDataContainer data = meta.getPersistentDataContainer();
                         NamespacedKey key1 = new NamespacedKey(this.plugin, "gas_filter");
                         Integer gas_filter = data.get(key1, PersistentDataType.INTEGER);
-                        if (gas_filter == null || gas_filter != GasProperties.MUSTARD.getIndex()) {
+                        if (gas_filter == null || gas_filter != GasProperties.MUSTARD.getIndex() || gas_filter != GasProperties.UNIVERSAL.getIndex()) {
                             applyGas(entity, power);
                         } else {
                             if (!(entity instanceof Villager)) {
@@ -72,7 +72,8 @@ public class MustardGas extends GasCloud {
         live();
     }
 
-    private void applyGas(LivingEntity entity, int power){
+    @Override
+    protected void applyGas(LivingEntity entity, int power){
         entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30*20, (int)Math.floor(power*0.75f), false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 45*20, power, false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30*20, power, false, false, false));

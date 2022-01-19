@@ -41,8 +41,8 @@ public class TearGas extends GasCloud {
                         PersistentDataContainer data = meta.getPersistentDataContainer();
                         NamespacedKey key1 = new NamespacedKey(this.plugin, "gas_filter");
                         Integer gas_filter = data.get(key1, PersistentDataType.INTEGER);
-                        if (gas_filter == null || gas_filter != GasProperties.TEAR.getIndex()){
-                            applyGas(entity);
+                        if (gas_filter == null || gas_filter != GasProperties.TEAR.getIndex() || gas_filter != GasProperties.UNIVERSAL.getIndex()){
+                            applyGas(entity, 0);
                         } else {
                             if (!(entity instanceof Villager)){
                                 NamespacedKey durabilityKey = new NamespacedKey(this.plugin, "durability");
@@ -58,12 +58,12 @@ public class TearGas extends GasCloud {
                                     lore.set(2, ChatColor.GOLD+"Durability left: " + ChatColor.RED + 0);
                                     meta.setLore(lore);
                                     helmet.setItemMeta(meta);
-                                    applyGas(entity);
+                                    applyGas(entity, 0);
                                 }
                             }
                         }
                     } else {
-                        applyGas(entity);
+                        applyGas(entity, 0);
                     }
                 }
             }
@@ -72,7 +72,8 @@ public class TearGas extends GasCloud {
     }
 
 
-    private void applyGas(LivingEntity entity){
+    @Override
+    protected void applyGas(LivingEntity entity, int power){
         entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60*20, level.getValue()-1, false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 10*20, 0, false, false, false));
     }

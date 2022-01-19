@@ -69,14 +69,18 @@ public class GasMask {
                 break;
         }
 
-        switch (gas_filter){
-            case 1:
+        switch (GasProperties.getByIndex(gas_filter)){
+            case UNIVERSAL:
+                recipe.setIngredient('B', Material.NETHERITE_INGOT);
+                recipe.setIngredient('F', Material.COBWEB);
+                break;
+            case MUSTARD:
                 recipe.setIngredient('F', Material.PHANTOM_MEMBRANE);
                 break;
-            case 2:
+            case CHLORINE:
                 recipe.setIngredient('F', Material.COAL_BLOCK);
                 break;
-            case 3:
+            case TEAR:
                 recipe.setIngredient('F', Material.GHAST_TEAR);
                 break;
         }

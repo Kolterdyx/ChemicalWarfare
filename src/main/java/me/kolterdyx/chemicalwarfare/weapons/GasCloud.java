@@ -3,6 +3,7 @@ package me.kolterdyx.chemicalwarfare.weapons;
 import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.Tier;
 import org.bukkit.*;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -12,6 +13,7 @@ public abstract class GasCloud extends BukkitRunnable {
     protected Location pos;
     protected World world;
     private double radius;
+    protected int gas_type=0;
     protected int effectDistanceSquared;
     protected int effectDistance;
     protected int ticksLived=0;
@@ -41,9 +43,8 @@ public abstract class GasCloud extends BukkitRunnable {
 
     }
 
-    public void createSmokeCloud(int seconds, int amount){
+    public void createSmokeCloud(int seconds, int amount){}
 
-    }
 
     public void createDebugLine(){
         Particle.DustTransition red = new Particle.DustTransition(Color.fromRGB(255, 0, 0), Color.fromRGB(255, 0, 0), 1f);
@@ -122,4 +123,6 @@ public abstract class GasCloud extends BukkitRunnable {
 
     @Override
     public abstract void run();
+
+    protected abstract void applyGas(LivingEntity entity, int power);
 }

@@ -5,9 +5,11 @@ import org.bukkit.ChatColor;
 
 public enum GasProperties {
     EMPTY(255, 255, 255, ChatColor.WHITE+"Empty"),
+    UNIVERSAL(0, 0, 0, ChatColor.WHITE+"Universal"),
     MUSTARD(241, 255, 38, ChatColor.YELLOW+"Mustard gas"),
     CHLORINE(203, 255, 82, ChatColor.GREEN+"Chlorine gas"),
     TEAR(250, 213, 255, ChatColor.AQUA+"Tear gas");
+
 
     private int[] color;
     private int index;
