@@ -76,8 +76,7 @@ public class MustardGas extends GasCloud {
         entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30*20, power, false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60*20, (int)Math.floor(power*0.75f), false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 30*20, (int)Math.floor(power*0.75f), false, false, false));
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 15*20, power, false, false, false));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 15*20, power+1, false, false, false));
         entity.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 40*20, power, false, false, false));
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.HARM, 2*20, (int)Math.floor(power*0.5f), false, false, false));
     }
 }
