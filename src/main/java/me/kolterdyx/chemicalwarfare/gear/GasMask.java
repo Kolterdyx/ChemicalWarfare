@@ -3,7 +3,6 @@ package me.kolterdyx.chemicalwarfare.gear;
 import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.utils.GasProperties;
 import me.kolterdyx.chemicalwarfare.utils.Tier;
-import net.minecraft.world.item.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -70,23 +69,26 @@ public class GasMask {
                 break;
         }
 
-        switch (gas_filter){
-            case 1:
+        switch (GasProperties.getByIndex(gas_filter)){
+            case UNIVERSAL:
+                recipe.setIngredient('B', Material.NETHERITE_INGOT);
+                recipe.setIngredient('F', Material.COBWEB);
+                break;
+            case MUSTARD:
                 recipe.setIngredient('F', Material.PHANTOM_MEMBRANE);
                 break;
-            case 2:
+            case CHLORINE:
                 recipe.setIngredient('F', Material.COAL_BLOCK);
                 break;
-            case 3:
+            case TEAR:
                 recipe.setIngredient('F', Material.GHAST_TEAR);
                 break;
         }
 
         Bukkit.getServer().addRecipe(recipe);
-
     }
 
     public ItemStack getItemStack(){
-        return item;
+        return item.clone();
     }
 }

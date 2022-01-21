@@ -4,34 +4,10 @@ version: '${project.version}'
 main: me.kolterdyx.chemicalwarfare.ChemicalWarfare
 api-version: 1.18
 commands:
-  chlorine:
-    description: Spawn chlorine gas
-    usage: /chlorine <tier 1-4> [seconds]
-    permission: chemicalwarfare.command.chlorine
-  mustard:
-    description: Spawn mustard gas
-    usage: /mustard <tier 1-4> [seconds]
-    permission: chemicalwarfare.command.mustard
-  tear:
-    description: Spawn tear gas
-    usage: /tear <tier 1-4> [seconds]
-    permission: chemicalwarfare.command.tear
-  canister:
-    description: Spawn canister item
-    usage: /canister <tier 1-4> [gas id 0-3]
-    permission: chemicalwarfare.command.canister
-  gasmask:
-    description: Spawn gas mask item
-    usage: /gasmask <tier 1-4> [gas id 0-3]
-    permission: chemicalwarfare.command.gasmask
-  cleargas:
-    description: Clears all gas clouds in the server
-    usage: /cleargas
-    permission: chemicalwarfare.command.cleargas
-  particleperiod:
-    description: Sets the period between particle spawns
-    usage: /particleperiod <period>
-    permission: chemicalwarfare.command.particleperiod
+  gas:
+    description: Create gas canisters, masks, clouds, or clear all the existing gas clouds
+    usage: /gas <mustard [tier] | chlorine [tier] | tear [tier] | canister <tier> [gas] | mask <tier> [gas] | clear>
+    permission: chemicalwarfare.admin
   cwpack:
     description: Download the resource pack
     usage: /cwpack

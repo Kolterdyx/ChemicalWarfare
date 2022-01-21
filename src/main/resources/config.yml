@@ -1,0 +1,47 @@
+# These are the average particles per block that the cloud will be made out of.
+cloud-particles:
+  tier-one: 2 # Default: 2
+  tier-two: 2 # Default: 2
+  tier-three: 2 # Default: 2
+  tier-four: 2 # Default: 2
+
+# The duration in seconds each cloud will stay in each tier before dissipating to the next one.
+# Example: A tier 4 cloud will last a total of 4*300 (1200) seconds with the default setting.
+#          A tier 3 cloud will last a total of 3*300 (900) seconds, and so forth.
+cloud-duration: 300 # Default: 300 (5 minutes)
+
+# This is how many seconds each mask tier will last in the gas
+gas-mask-durability:
+  tier-one: 120 # Default: 120 (2 minutes)
+  tier-two: 180 # Default: 180 (3 minutes)
+  tier-three: 300 # Default: 300 (5 minutes)
+  tier-four: 600 # Default: 600 (10 minutes)
+
+allow-repair-gas-masks: false # Default false
+# The line below will only take effect if "allow-repair-gas-masks" is set to 'true'
+# The name of the item (Bukkit material name, see: https://dev.bukkit.org/projects/supplies/pages/material-list) to be used in an anvil to repair the mask
+mask-repair-item: "none"
+# How much durability should be restored per item used
+mask-repair-amount: 0
+# How many experience levels should repairing a mask cost each time.
+# Masks won't have limited repairs and the price will not change dynamically with each use.
+mask-repair-cost:
+  tier-one: 0
+  tier-two: 0
+  tier-three: 0
+  tier-four: 0
+
+# This line decides wether living entities other than players (like, sheeps, villagers or zombies, mobs in general)
+# Should be affected by gas clouds.
+# Affect only players - false
+# Affect all entities - true
+gas-affects-living-entities: true # Default: true
+
+# This line decides wether one can load and fire gas RPGs using multishot crossbows, which results in canisters being multiplied by three.
+allow-multishot-rpgs: false # Default: false
+
+# Show a blue circle made out of particles where the gas officially ends.
+debug-circle: false # Default: false
+
+resource-pack-url: "http://nube.videlicet.es/s/zJz5LQo4FbapcXW/download/ChemicalWarfare.zip"
+resource-pack-host-port: 8888
