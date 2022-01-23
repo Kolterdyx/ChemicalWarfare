@@ -6,6 +6,7 @@ import me.kolterdyx.chemicalwarfare.weapons.ChlorineGas;
 import me.kolterdyx.chemicalwarfare.weapons.MustardGas;
 import me.kolterdyx.chemicalwarfare.weapons.TearGas;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
@@ -14,8 +15,11 @@ import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FireworkExplodeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -41,6 +45,27 @@ public class CWListener implements Listener {
 
     public CWListener(Plugin plugin){
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event){
+        if (ChemicalWarfare.deathList.containsKey(event.getEntity())){
+            switch (ChemicalWarfare.deathList.get(event.getEntity())){
+                case SUFFOCATION -> {
+                    event.setDeathMessage(event.getEntity().getDisplayName()+" suffocated in his own gas mask.");
+                }
+                case MUSTARD -> {
+                    event.setDeathMessage(event.getEntity().getDisplayName()+" inhaled too much mustard gas.");
+                }
+                case TEAR -> {
+                    event.setDeathMessage(event.getEntity().getDisplayName()+" inhaled too much tear gas.");
+                }
+                case CHLORINE -> {
+                    event.setDeathMessage(event.getEntity().getDisplayName()+" inhaled too much chlorine gas.");
+                }
+            }
+            ChemicalWarfare.deathList.remove(event.getEntity());
+        }
     }
 
     @EventHandler
@@ -94,7 +119,6 @@ public class CWListener implements Listener {
 
     @EventHandler
     public void onPrepareAnvil(PrepareAnvilEvent event){
-        if (!ChemicalWarfare.getCustomConfig().getBoolean("allow-repair-gas-masks"))return;
         ItemStack first = event.getInventory().getItem(0);
         ItemStack second = event.getInventory().getItem(1);
         if (first==null) return;
@@ -115,6 +139,7 @@ public class CWListener implements Listener {
                 int gas = data.get(gasKey, PersistentDataType.INTEGER);
                 int tier = data.get(tierKey, PersistentDataType.INTEGER);
 
+                if (!ChemicalWarfare.getCustomConfig().getBoolean("allow-repair-gas-masks") && GasProperties.getByIndex(gas) != GasProperties.UNIVERSAL)return;
                 if (ChemicalWarfare.getCustomConfig().getString("mask-repair-item").equalsIgnoreCase("none")) return;
 
                 if (second.getAmount() == 1 && second.isSimilar(new ItemStack(Material.getMaterial(ChemicalWarfare.getCustomConfig().getString("mask-repair-item"))))){
@@ -154,6 +179,12 @@ public class CWListener implements Listener {
     }
 
     @EventHandler
+    public void onBlockPistonExtend(BlockPistonExtendEvent event){
+        Bukkit.getLogger().info("yeet");
+        plugin.getLogger().info("yeet");
+    }
+
+    @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event){
         boolean rightClick = event.getAction() == Action.RIGHT_CLICK_AIR;
         boolean rightClickBlock = event.getAction() == Action.RIGHT_CLICK_BLOCK;
@@ -166,10 +197,16 @@ public class CWListener implements Listener {
                 PersistentDataContainer data = item.getItemMeta().getPersistentDataContainer();
                 String itemType = data.get(itemKey, PersistentDataType.STRING);
                 if (itemType != null) {
-                    if (data.get(gasKey, PersistentDataType.INTEGER) == 0) {
+                    if (data.get(gasKey, PersistentDataType.INTEGER) == GasProperties.EMPTY.getIndex()) {
                         event.setCancelled(true);
+                        return;
                     }
                 }
+            }
+
+            Block block = event.getClickedBlock();
+            if (block.getLocation() == null){
+
             }
         }
 

@@ -31,6 +31,11 @@ mask-repair-cost:
   tier-three: 0
   tier-four: 0
 
+# Wether or not to allow crafting universal gas masks than will protect you from any gas
+allow-universal-gas-masks: false # Default: false
+# How many seconds of oxygen can be stored at max in an universal gas mask
+max-oxygen: 1200 # Default: 1200
+
 # This line decides wether living entities other than players (like, sheeps, villagers or zombies, mobs in general)
 # Should be affected by gas clouds.
 # Affect only players - false

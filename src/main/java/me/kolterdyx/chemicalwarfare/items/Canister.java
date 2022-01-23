@@ -9,13 +9,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Canister{
 
@@ -37,7 +35,7 @@ public class Canister{
         meta.setDisplayName(ChatColor.WHITE+"Canister");
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.GOLD+"Tier: "+ChatColor.GREEN+tier.getValue());
-        lore.add(ChatColor.GOLD+"Contents: "+ GasProperties.getByIndex(gas).getName());
+        lore.add(ChatColor.GOLD+"Contents: "+ GasProperties.getByIndex(gas).getFormalName());
         meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         item.setItemMeta(meta);
@@ -63,14 +61,14 @@ public class Canister{
                 recipe.shape(" S ","SCS"," S ");
                 break;
         }
-        switch (gas){
-            case 1:
+        switch (GasProperties.getByIndex(gas)){
+            case MUSTARD:
                 recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SULFUR_MUSTARD));
                 break;
-            case 2:
+            case CHLORINE:
                 recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.CHLORINE_CONCENTRATE));
                 break;
-            case 3:
+            case TEAR:
                 recipe.setIngredient('S', new RecipeChoice.ExactChoice(ItemManager.SEAWEED_EXTRACT));
                 break;
         }

@@ -2,6 +2,7 @@ package me.kolterdyx.chemicalwarfare.utils;
 
 import me.kolterdyx.chemicalwarfare.ChemicalWarfare;
 import me.kolterdyx.chemicalwarfare.gear.GasMask;
+import me.kolterdyx.chemicalwarfare.gear.UniversalGasMask;
 import me.kolterdyx.chemicalwarfare.items.Canister;
 import me.kolterdyx.chemicalwarfare.weapons.*;
 import org.bukkit.Bukkit;
@@ -50,11 +51,11 @@ public class Commands implements CommandExecutor {
                                     new ChlorineGas(plugin, Integer.parseInt(args[1]), player.getLocation(), player.getWorld()).runTaskTimer(plugin, 0L, ChemicalWarfare.particlePeriod);
                                     break;
                                 case "canister":
-                                    ItemStack canister = new Canister(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, 0).getItemStack();
+                                    ItemStack canister = new Canister(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, GasProperties.EMPTY.getIndex()).getItemStack();
                                     player.getInventory().addItem(canister);
                                     break;
                                 case "mask":
-                                    ItemStack gasmask = new GasMask(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, 1).getItemStack();
+                                    ItemStack gasmask = new UniversalGasMask(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, GasProperties.UNIVERSAL.getIndex()).getItemStack();
                                     player.getInventory().addItem(gasmask);
                                     break;
                             }
@@ -71,11 +72,16 @@ public class Commands implements CommandExecutor {
                                     new ChlorineGas(plugin, Integer.parseInt(args[1]), player.getLocation(), player.getWorld(), Integer.parseInt(args[2])).runTaskTimer(plugin, 0L, ChemicalWarfare.particlePeriod);
                                     break;
                                 case "mask":
-                                    ItemStack gasmask = new GasMask(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1,  Integer.parseInt(args[2])).getItemStack();
+                                    ItemStack gasmask;
+                                    if (GasProperties.UNIVERSAL.getName().equals(args[2])){
+                                        gasmask = new UniversalGasMask(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1,  GasProperties.getIndexByName(args[2])).getItemStack();
+                                    } else {
+                                        gasmask = new GasMask(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1,  GasProperties.getIndexByName(args[2])).getItemStack();
+                                    }
                                     player.getInventory().addItem(gasmask);
                                     break;
                                 case "canister":
-                                    ItemStack canister = new Canister(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, Integer.parseInt(args[2])).getItemStack();
+                                    ItemStack canister = new Canister(plugin, new Tier[]{Tier.ONE, Tier.TWO, Tier.THREE, Tier.FOUR}[Integer.parseInt(args[1])-1], 1, GasProperties.getIndexByName(args[2])).getItemStack();
                                     player.getInventory().addItem(canister);
                                     break;
                             }

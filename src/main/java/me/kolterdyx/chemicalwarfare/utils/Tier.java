@@ -44,4 +44,12 @@ public enum Tier {
     public int getDurability() {
         return durability*20;
     }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setDurability(int durability) {
+        this.durability = durability;
+    }
 }

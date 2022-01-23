@@ -35,7 +35,7 @@ public class Rocket {
         meta.setDisplayName(ChatColor.WHITE+"Gas RPG");
         ArrayList<String> lore = new ArrayList<>();
         lore.add(ChatColor.GOLD+"Tier: "+ChatColor.GREEN+tier.getValue());
-        lore.add(ChatColor.GOLD+"Contents: "+ GasProperties.getByIndex(gas).getName());
+        lore.add(ChatColor.GOLD+"Contents: "+ GasProperties.getByIndex(gas).getFormalName());
         meta.setLore(lore);
         meta.setPower(power);
         item.setItemMeta(meta);
